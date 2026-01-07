@@ -58,7 +58,7 @@ jobs:
 
       - name: "Copy Docker-Compose file to EC2"
         run: |
-          scp -i mykey.pem ./docker-compose.yaml $SERVER_USER@SERVER_IP:~/
+          scp -i mykey.pem ./docker-compose.yaml $SERVER_USER@$SERVER_IP:~/
       
       - name: "Make SSH Conenction, pull and run Docker Image"
         run: |
