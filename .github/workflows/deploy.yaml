@@ -43,7 +43,7 @@ jobs:
           echo -e "Host *\n\tStrictHostKeyChecking no\n" > ~/.ssh/config
           chmod 600 ~/.ssh/config
         env:
-        SSH_KEY64: ${{ secrets.SSH_KEY64 }}
+          SSH_KEY64: ${{ secrets.SSH_KEY64 }}
 
       - name: "Copy Docker-Compose file"
         run: |
