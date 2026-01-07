@@ -38,16 +38,27 @@ jobs:
       
       - name: "Push Docker Image"
         run: |
+          docker push "$DOCKER_HUB_USER/$DOCKER_HUB_REPO:$TAG"
+
+      - name: "Setup SSH Connection"
+        run: |
           mkdir -p ~/.ssh
           chmod 700 ~/.ssh
           echo -e "Host *\n\tStrictHostKeyChecking no\n" > ~/.ssh/config
           chmod 600 ~/.ssh/config
+
+      - name: Add private key for ssh 
+        run: |
+          echo "$SSH_KEY64" | base64 -d >> mykey.pem
+          chmod 400 mykey.pem 
+          touch ~/.ssh/known_hosts
+          ssh-keygen -R $SERVER_IP
         env:
           SSH_KEY64: ${{ secrets.SSH_KEY64 }}
 
       - name: "Copy Docker-Compose file to EC2"
         run: |
-          scp -i ~/.ssh/mykey.pem ./docker-compose.yaml $SERVER_USER@SERVER_IP:~/
+          scp -i mykey.pem ./docker-compose.yaml $SERVER_USER@SERVER_IP:~/
       
       - name: "Make SSH Conenction, pull and run Docker Image"
         run: |
