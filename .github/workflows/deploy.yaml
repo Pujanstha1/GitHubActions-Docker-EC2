@@ -45,9 +45,9 @@ jobs:
         env:
           SSH_KEY64: ${{ secrets.SSH_KEY64 }}
 
-      - name: "Copy Docker-Compose file"
+      - name: "Copy Docker-Compose file to EC2"
         run: |
-          scp -i mykey.pem ./docker-compose.yaml $SERVER_USER@SERVER_IP:~/
+          scp -i ~/.ssh/mykey.pem ./docker-compose.yaml $SERVER_USER@SERVER_IP:~/
       
       - name: "Make SSH Conenction, pull and run Docker Image"
         run: |
