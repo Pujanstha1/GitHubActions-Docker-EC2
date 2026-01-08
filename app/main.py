@@ -3,10 +3,15 @@ from fastapi.templating import Jinja2Templates
 from fastapi.responses import RedirectResponse
 from .database import SessionLocal, engine
 from . import models, crud, schemas
+from fastapi.staticfiles import StaticFiles
 
 models.Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
+
+# Mount static folder
+app.mount("/static", StaticFiles(directory="app/static"), name="static")
+
 templates = Jinja2Templates(directory="app/templates")
 
 def get_db():
