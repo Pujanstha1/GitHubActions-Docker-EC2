@@ -4,10 +4,15 @@
 <ul>
     {% for item in items %}
         <li>
-            <b>{{ item.name }}</b> - {{ item.description }}
-            [<a href="/edit/{{ item.id }}">Edit</a>]
-            [<a href="/delete/{{ item.id }}">Delete</a>]
+            <div>
+                <b>{{ item.name }}</b> - {{ item.description }}
+            </div>
+            <div class="actions">
+                <a href="/edit/{{ item.id }}">Edit</a>
+                <a href="/delete/{{ item.id }}">Delete</a>
+            </div>
         </li>
     {% endfor %}
 </ul>
 {% endblock %}
+
